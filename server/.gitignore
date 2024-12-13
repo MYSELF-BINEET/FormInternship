@@ -1,0 +1,4 @@
+.env
+logs
+public/img/users/*
+node_moduels
