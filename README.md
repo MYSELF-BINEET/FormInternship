@@ -5,7 +5,6 @@ https://easyformbuilder.netlify.app/
 
 (Profile picture upload only works in local development as costs money in deployed server.)
 
-![Screenshot of Form Builder website](https://github.com/RohanShrestha01/form-builder/assets/70142301/a4273f13-1842-46cb-aef6-b04244c8f46e)
 
 ## Installation
 You need to install [pnpm](https://pnpm.io/installation) first as pnpm workspace is used for this monorepo.
@@ -54,6 +53,72 @@ pnpm dev
 </ul>
 
 <h2> Features </h2>
+**Design Decisions**  
+**1. Frontend Framework: Vite + React**  
+We chose Vite as the build tool due to its lightning-fast development experience, leveraging modern JavaScript features. React was selected for its component-based architecture, enabling modular and reusable UI development. Vite’s hot module replacement (HMR) ensures rapid iteration, enhancing developer productivity.
+
+**2. Backend Framework: Node.js + Express.js**  
+Node.js offers an event-driven, non-blocking architecture ideal for scalable applications. Express.js provides a minimalist web framework, enabling us to build RESTful APIs quickly.
+
+**3. TypeScript Integration**  
+TypeScript was used throughout the project to ensure type safety, reducing runtime errors and improving code maintainability.
+
+**Database Structure (PostgreSQL)**  
+**1. Tables Overview:**
+
+- **Users**: Manages user authentication and profile information.  
+  - `id` (PK) - Unique user ID  
+  - `email` - User's email address  
+  - `password_hash` - Securely hashed password  
+  - `created_at` - Timestamp of account creation
+
+- **Forms**: Stores form metadata.  
+  - `id` (PK) - Unique form ID  
+  - `title` - Form title  
+  - `description` - Form description  
+  - `created_by` (FK) - References `Users(id)`  
+  - `created_at` - Timestamp of form creation
+
+- **Fields**: Contains form fields' structure and properties.  
+  - `id` (PK) - Unique field ID  
+  - `form_id` (FK) - References `Forms(id)`  
+  - `type` - Field type (text, checkbox, etc.)  
+  - `label` - Field label text  
+  - `required` - Boolean indicating if the field is mandatory
+
+- **Submissions**: Captures submitted form data.  
+  - `id` (PK) - Unique submission ID  
+  - `form_id` (FK) - References `Forms(id)`  
+  - `submitted_at` - Submission timestamp
+
+- **Submission_Values**: Stores key-value pairs for submissions.  
+  - `id` (PK) - Unique value ID  
+  - `submission_id` (FK) - References `Submissions(id)`  
+  - `field_id` (FK) - References `Fields(id)`  
+  - `value` - Submitted value
+
+**Authentication Flow**
+
+1. **User Registration:**  
+   - Users provide email and password.  
+   - Passwords are hashed using bcrypt before storage.
+
+2. **Login:**  
+   - Users submit credentials.  
+   - Credentials are validated against stored records.  
+   - Upon success, a JWT is generated and returned.
+
+3. **Protected Routes:**  
+   - Client includes the JWT in the Authorization header.  
+   - Backend verifies the JWT, granting or denying access.
+
+4. **Token Refresh & Expiration:**  
+   - Tokens have expiration times for security.  
+   - Refresh tokens can be implemented for extended sessions.
+
+These design choices ensure a scalable, secure, and maintainable application that supports robust form management, data storage, and seamless authentication.
+
+
 <ul>
   <li> JWT Authentication along with Protected Routes, Refresh Tokens, reuse detection and rotation. </li>
   <li> Logout, Change password and delete account functionalities. </li>
