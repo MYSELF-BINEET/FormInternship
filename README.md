@@ -37,7 +37,7 @@ then build the shared validation package
 pnpm -F @form-builder/validation build
 ```
 
-Also, create .env file with the help of .env.example file for both client and server. You can use [Brevo](https://www.brevo.com/) for free SMTP server and [MongoDB Atlas](https://www.mongodb.com/atlas/database) for database.
+Also, create .env file with the help of .env.example file for both client and server. You can use [Brevo](https://www.brevo.com/) for free SMTP server and PgAdmin for database.
 
 Run the project with command
 
@@ -49,7 +49,7 @@ pnpm dev
 <ul>
   <li>Frontend: <b> React, TypeScript, Tailwind, React Hook Form, Zod, ShadcnUI, React Router, DND Kit, Tanstack Query, Tanstack Table, Tiptap, React Dropzone, React Easy Crop, Zustand </b></li>
   <li>Backend:  <b> Node, Express, TypeScript, Nodemailer, Multer, JWT </b> </li>
-  <li>Database: <b> MongoDB, Mongoose </b> </li>
+  <li>Database: <b> PostgreSql & PgAdmin </b> </li>
 </ul>
 
 <h2> Features </h2>
